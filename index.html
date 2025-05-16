@@ -3,119 +3,315 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gratitude Harvest</title>
+  <title><h1 class="rainbow-text">Gratitude Harvest</h1></title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
       background: linear-gradient(to bottom, #fff8f8, #f4f4f4);
       color: #333;
       overflow-x: hidden;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
     }
+
+    .section {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .section:hover {
+      box-shadow: 0 8px 32px rgba(76,175,80,0.15);
+      transform: translateY(-4px) scale(1.01);
+    }
+
     header {
-      background-color: #C1003E;
+      background: linear-gradient(rgba(193,0,62,0.85), rgba(193,0,62,0.5)), url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
       color: white;
       padding: 2rem;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
+    header img {
+      display: none;
+    }
     header h1 {
       font-size: 2.8rem;
       margin: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      letter-spacing: 0.04em;
     }
-    header p {
-      font-size: 1.3rem;
-      margin-top: 0.5rem;
-    }
-    header img {
-      width: 100%;
-      max-height: 360px;
-      object-fit: cover;
-      margin-top: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      display: block;
-    }
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    .section {
-      margin-bottom: 2.5rem;
-    }
-    .section h2 {
-      color: #660033;
-      border-left: 4px solid #C1003E;
-      padding-left: 0.5rem;
-      display: flex;
-      align-items: center;
-    }
-    .section h2::before {
-      content: "🌿 ";
-      margin-right: 0.5rem;
-    }
+
     .cta {
-      background-color: #C1003E;
+      background: linear-gradient(90deg, #C1003E, #e94e77);
       color: white;
       padding: 1rem 2rem;
       border: none;
       font-size: 1.2rem;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 2px 8px rgba(76,175,80,0.15);
+      transition: background 0.3s, transform 0.2s;
       margin-top: 1rem;
     }
     .cta:hover {
-      background-color: #a30034;
-      transform: scale(1.05);
+      background: linear-gradient(90deg, #4CAF50, #81C784);
+      transform: scale(1.08);
     }
-    .footer {
+
+    .section-img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 0.5rem;
+      transition: transform 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      filter: drop-shadow(0 2px 6px rgba(76,175,80,0.12));
+    }
+    .section-img:hover {
+      transform: scale(1.2) rotate(-10deg);
+      filter: drop-shadow(0 4px 12px rgba(76,175,80,0.18));
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      z-index: 3000;
+      padding: 0.5rem 0;
+    }
+    .navbar ul {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: #C1003E;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.2s, background 0.2s;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+    }
+    .navbar a:hover, .navbar a:focus {
+      background: #fbe4ec;
+      color: #660033;
+    }
+
+    .falling-leaf {
+      position: fixed;
+      top: -40px;
+      width: 32px;
+      height: 32px;
+      z-index: 1000;
+      pointer-events: none;
+      animation: leaf-fall-sway 3s linear forwards;
+    }
+
+    @keyframes leaf-fall-sway {
+      0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+      20% { transform: translateY(20vh) translateX(-20px) rotate(-15deg); }
+      40% { transform: translateY(40vh) translateX(20px) rotate(10deg); }
+      60% { transform: translateY(60vh) translateX(-20px) rotate(-10deg); }
+      80% { transform: translateY(80vh) translateX(20px) rotate(15deg); }
+      100% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .section {
+        padding: 1rem;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      .navbar ul {
+        gap: 1rem;
+      }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 2.5rem 2rem 2rem 2rem;
+      border-radius: 16px;
+      max-width: 420px;
+      margin: 2rem auto;
+      text-align: left;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(76,175,80,0.15);
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-content h2 {
       text-align: center;
-      font-size: 0.9rem;
-      color: #999;
-      margin-top: 2rem;
-      padding-bottom: 1rem;
+      color: #C1003E;
+      margin-bottom: 1.5rem;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
     }
-    .leaf {
+    .modal-content label {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 0.2rem;
+      font-size: 1.05em;
+    }
+    .modal-content input[type="text"],
+    .modal-content input[type="email"],
+    .modal-content input[type="file"],
+    .modal-content select,
+    .modal-content textarea {
+      width: 100%;
+      padding: 0.7em 1em;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-top: 0.2em;
+      font-size: 1em;
+      font-family: inherit;
+      background: #fafbfc;
+      box-sizing: border-box;
+      transition: border 0.2s;
+    }
+    .modal-content input[type="text"]:focus,
+    .modal-content input[type="email"]:focus,
+    .modal-content textarea:focus,
+    .modal-content select:focus {
+      border: 1.5px solid #C1003E;
+      outline: none;
+      background: #fff;
+    }
+    .modal-content textarea {
+      resize: vertical;
+      min-height: 60px;
+      max-height: 180px;
+    }
+    .modal-content input[type="file"] {
+      padding: 0.3em 0.2em;
+      background: none;
+      border: none;
+    }
+    .modal-content .cta {
+      margin-top: 0.5rem;
+      font-size: 1.1em;
+      width: 100%;
+    }
+    .close-modal {
       position: absolute;
-      top: -50px;
-      width: 30px;
-      height: 30px;
-      background-image: url('https://cdn-icons-png.flaticon.com/512/415/415733.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      animation: fall linear infinite;
-      opacity: 0.7;
-    }
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      color: #C1003E;
+      cursor: pointer;
+      font-weight: bold;
     }
   </style>
+  <script>
+    // Typing effect for welcome message
+    document.addEventListener('DOMContentLoaded', function() {
+      const welcome = document.getElementById('welcome-typing');
+      if (welcome) {
+        let text = welcome.getAttribute('data-text');
+        let i = 0;
+        function type() {
+          if (i < text.length) {
+            welcome.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 50);
+          }
+        }
+        type();
+      }
+    });
+
+    // Modal logic
+    function openModal() {
+      document.body.style.overflow = 'hidden';
+      document.getElementById('modal').style.display = 'flex';
+      document.getElementById('nomination-form').style.display = 'flex';
+      document.getElementById('thankyou-message').style.display = 'none';
+    }
+    function closeModal() {
+      document.body.style.overflow = '';
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    // Nomination form submission
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('nomination-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          form.style.display = 'none';
+          document.getElementById('thankyou-message').style.display = 'block';
+        });
+      }
+    });
+
+    // Plant a leaf animation
+    function plantLeaf() {
+      const leaf = document.createElement('img');
+      leaf.src = 'https://www.pngmart.com/files/23/Leaf-Icon-PNG-Photo.png';
+      leaf.alt = 'Leaf';
+      leaf.className = 'falling-leaf';
+      leaf.style.left = Math.random() * 90 + '%';
+      document.body.appendChild(leaf);
+      setTimeout(() => leaf.remove(), 3000);
+    }
+  </script>
 </head>
 <body>
+  <nav class="navbar">
+    <ul>
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#why-it-matters">Why It Matters</a></li>
+      <li><a href="#nominate">Nominate</a></li>
+    </ul>
+  </nav>
   <header>
-    <h1>Gratitude Harvest</h1>
+    <h1 style="color:white;font-size:2.8rem;font-weight:bold;margin:0;">Gratitude Harvest</h1>
     <p>🌱 Plant the Praise. Watch Us Grow.</p>
-    <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1200&q=80" alt="Single Tree Illustration" />
-    <div class="leaf" style="left: 10%; animation-duration: 12s;"></div>
-    <div class="leaf" style="left: 30%; animation-duration: 9s;"></div>
-    <div class="leaf" style="left: 50%; animation-duration: 11s;"></div>
-    <div class="leaf" style="left: 70%; animation-duration: 13s;"></div>
-    <div class="leaf" style="left: 90%; animation-duration: 10s;"></div>
+    <div class="apple" style="left: 10%; animation-duration: 12s;"></div>
+    <div class="apple" style="left: 30%; animation-duration: 9s;"></div>
+    <div class="apple" style="left: 50%; animation-duration: 11s;"></div>
+    <div class="apple" style="left: 70%; animation-duration: 13s;"></div>
+    <div class="apple" style="left: 90%; animation-duration: 10s;"></div>
   </header>
 
   <main>
-    <section class="section">
+    <section class="section" id="welcome">
+      <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Welcome Icon" class="section-img" />
       <h2>Welcome to the Team!</h2>
-      <p>
-        👋 If you're new here—welcome aboard! Gratitude Harvest is one of the ways we celebrate each other and build a connected, values-driven culture. It's more than a program—it's a chance to feel seen, supported, and part of something meaningful from day one.
-      </p>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 1rem;">
+      </div>
+      <p id="welcome-typing">👋 If you're new here—welcome aboard! Gratitude Harvest is one of the ways we celebrate each other and build a connected, values-driven culture. It's more than a program—it's a chance to feel seen, supported, and part of something meaningful from day one.</p>
     </section>
 
-    <section class="section">
+    <section class="section" id="how-it-works">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" alt="How it works" class="section-img" />
       <h2>How It Works</h2>
       <ul>
         <li>📩 Nominate any colleague using our online form—yes, even as a newcomer, your voice matters.</li>
@@ -124,17 +320,73 @@
       </ul>
     </section>
 
-    <section class="section">
+    <section class="section" id="why-it-matters">
+      <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Why it matters" class="section-img" />
       <h2>Why It Matters</h2>
       <p>
         💡 Starting a new role can feel overwhelming—this initiative ensures you’ll see (and be seen) for the everyday ways people help each other. It’s a great way to get to know your teammates, show appreciation, and feel part of the bigger picture.
       </p>
     </section>
 
-    <section class="section" style="text-align:center;">
-      <button class="cta" onclick="alert('Nomination form coming soon!')">🌿 Nominate a Colleague</button>
+    <section class="section" id="nominate" style="text-align:center;">
+      <button class="cta" onclick="openModal()">🌿 Nominate a Colleague</button>
+      <button class="cta" style="background-color:#4CAF50;margin-left:1rem;" onclick="plantLeaf()">🍃 Plant a Leaf</button>
     </section>
   </main>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h2>Nomination Form</h2>
+      <form id="nomination-form" style="display: flex; flex-direction: column; gap: 1rem;">
+        <label>
+          Your Name (optional)
+          <input type="text" name="nominator" placeholder="e.g. Alex Tan" />
+        </label>
+        <label>
+          Your Email (optional)
+          <input type="email" name="nominator_email" placeholder="e.g. alex@email.com" />
+        </label>
+        <label>
+          Nominee’s Name *
+          <input type="text" name="nominee" required placeholder="e.g. Jamie Lee" />
+        </label>
+        <label>
+          Nominee’s Department/Team
+          <input type="text" name="department" placeholder="e.g. Product Team" />
+        </label>
+        <label>
+          Reason for Nomination *
+          <textarea name="reason" required rows="3" placeholder="Describe how your colleague made a difference..."></textarea>
+        </label>
+        <label>
+          Core Value Demonstrated *
+          <select name="core_value" required>
+            <option value="">Select a value</option>
+            <option>Impact</option>
+            <option>Integrity</option>
+            <option>Innovation</option>
+            <option>Collaboration</option>
+            <option>Courage</option>
+            <option>Care</option>
+          </select>
+        </label>
+        <label>
+          Attach a Photo or File (optional)
+          <input type="file" name="attachment" />
+        </label>
+        <label style="font-size: 0.95em;">
+          <input type="checkbox" name="consent" required />
+          I consent to my nomination being shared with the team.
+        </label>
+        <button type="submit" class="cta">Submit Nomination</button>
+        <button type="button" class="cta" style="background:#eee;color:#C1003E;margin-top:0.5rem;" onclick="closeModal()">Close</button>
+      </form>
+      <div id="thankyou-message" style="display:none; text-align:center; font-size:1.2rem; color:#4CAF50; margin-top:1.5rem;">
+        Thank you for your nomination! 🌟
+      </div>
+    </div>
+  </div>
 
   <div class="footer">
     &copy; 2025 IMDA | Designed for internal use
